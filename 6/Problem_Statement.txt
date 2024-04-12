@@ -1,0 +1,2 @@
+Write a program to develop a decision tree classifier based on weather forecasting dataset.
+(This is 7th program in the lab cycle but ma'am has instructed us to execute it in the next lab)
