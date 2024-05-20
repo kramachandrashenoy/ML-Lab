@@ -1,0 +1,1 @@
+https://nbviewer.org/github/kramachandrashenoy/ML-Lab/blob/main/7/a/Glass.ipynb
