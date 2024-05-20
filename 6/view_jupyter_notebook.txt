@@ -1,0 +1,3 @@
+https://nbviewer.org/github/kramachandrashenoy/ML-Lab/blob/main/6/Using_sklearn.ipynb
+
+https://nbviewer.org/github/kramachandrashenoy/ML-Lab/blob/main/6/without_using_sklearn.ipynb
