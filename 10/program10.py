@@ -1,4 +1,7 @@
-PCA without using sklearn
+# PCA without using sklearn
+
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
@@ -55,7 +58,16 @@ plt.ylabel("Principal Component 2")
 plt.title("PCA of Iris Dataset (Custom Implementation)")
 plt.show()
 
-PCA with sklearn
+
+
+
+
+# PCA with sklearn
+
+
+
+
+
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -84,7 +96,17 @@ plt.title("PCA of Iris Dataset (sklearn Implementation)")
 plt.show()
 
 
-LDA without using sklearn
+
+
+
+# LDA without using sklearn
+
+
+
+
+
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
@@ -152,7 +174,14 @@ plt.ylabel("Linear Discriminant 2")
 plt.title("LDA of Iris Dataset (Custom Implementation)")
 plt.show()
 
-LDA using sklearn
+
+
+# LDA using sklearn
+
+
+
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
