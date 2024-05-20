@@ -1,1 +1,0 @@
-https://nbviewer.org/github/kramachandrashenoy/ML-Lab/blob/main/1/program%201.ipynb
