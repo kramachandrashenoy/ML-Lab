@@ -14,7 +14,7 @@ Programs for Machine Learning Lab internals (20CS67L)
 
  6) KNN with Glass dataset(Euclidean)
 
- 7) KNN with fruit dataset(Manhattan)
+ 7) Decision Tree classifier
 
  8) Kmeans with iris dataset
 
