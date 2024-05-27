@@ -2,7 +2,7 @@ ML Lab
 
 Programs for Machine Learning Lab internals (20CS67L)
 
-1	Visualize the n-dimensional data using 3D surface plots.
+1	Visualize the n-dimensional data using 3D surface plots.\n
 Write a program to implement the Best First Search (BFS) algorithm.
 2	Visualize the n-dimensional data using contour plots.
 Write a program to implement the A* algorithm
