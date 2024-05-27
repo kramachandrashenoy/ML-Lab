@@ -73,7 +73,6 @@ plt.show()
 3D surface plots are useful for visualizing 3D data.'''
 
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
 # Generate data
