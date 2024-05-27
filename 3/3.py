@@ -3,6 +3,8 @@
 
 
 import heapq
+#Min-Heap Property: By default, heapq maintains a min-heap, meaning the smallest element is always at the root of the heap. 
+#This ensures that the smallest element is the one that gets popped first.
 
 def best_first_search(graph, start, goal, heuristic):
     # Priority queue for exploring nodes based on heuristic
@@ -75,9 +77,9 @@ import heapq
 def a_star_search(graph, start, goal, heuristic, cost):
     # Priority queue for exploring nodes
     priority_queue = []
-    heapq.heappush(priority_queue, (0 + heuristic[start], start))
+    heapq.heappush(priority_queue, (0 + heuristic[start], start)) #the priority is determined by the estimated total cost (current cost + heuristic)
     visited = set()
-    g_cost = {start: 0}
+    g_cost = {start: 0} #g_cost stores the cost of the cheapest known path from the start node to each node.
     parent = {start: None}
 
     while priority_queue:
