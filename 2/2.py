@@ -1,3 +1,5 @@
+# Better to use Toyota dataset to plot
+
 '''Scatter Plot
 Scatter plots are useful for visualizing relationships between two variables.'''
 
@@ -31,6 +33,17 @@ sns.boxplot(data=data)
 plt.title('Box Plot')
 plt.show()
 
+# Using boxplot
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data=pd.read_csv('./ToyotaCorolla.csv')
+
+plt.boxplot([data["Price"],data["HP"],data["KM"]])
+
+plt.xticks([1,2,3],["Price","HP","KM"])
+
+plt.show()
 
 
 '''Heat Map
@@ -46,6 +59,16 @@ data = np.random.rand(10, 12)
 # Create heat map
 sns.heatmap(data, annot=True, cmap='viridis')
 plt.title('Heat Map')
+plt.show()
+
+# using toyota dataset
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+data=pd.read_csv("./ToyotaCorolla.csv")
+
+sns.heatmap(data[["Price","KM","Doors", "Weight"]].corr(),cmap='jet')
 plt.show()
 
 
@@ -64,6 +87,23 @@ Z = np.sin(np.sqrt(X**2 + Y**2))
 
 # Create contour plot
 plt.contour(X, Y, Z, levels=20, cmap='RdGy')
+plt.title('Contour Plot')
+plt.show()
+
+# Using Toyota dataset
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+
+dataset = pd.read_csv('./ToyotaCorolla.csv')
+x = dataset['KM']
+y = dataset['Weight']
+z = dataset['Price']
+
+plt.tricontourf(x, y, z, levels=20, cmap='jet')
+plt.colorbar(label='Price')
+plt.xlabel('KM')
+plt.ylabel('Weight')
 plt.title('Contour Plot')
 plt.show()
 
@@ -86,4 +126,20 @@ fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 ax.plot_surface(X, Y, Z, cmap='viridis')
 ax.set_title('3D Surface Plot')
+plt.show()
+
+# Using toyota dataset
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+dataset = pd.read_csv('./ToyotaCorolla.csv')
+x = dataset['KM']
+y = dataset['Doors']
+z = dataset['Price']
+
+ax = plt.axes(projection='3d')
+ax.plot_trisurf(x,y,z,cmap="jet")
+ax.set_title("3D Surface Plot")
+
 plt.show()
