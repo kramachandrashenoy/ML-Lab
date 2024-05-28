@@ -14,9 +14,6 @@ def minmax(depth, nodeIndex, maximizingPlayer, values, alpha, beta, path):
             if val > best:
                 best = val
                 best_path = new_path
-            alpha = max(alpha, best)
-            if beta <= alpha:
-                break
         return best, best_path
     else:
         best = float('inf')
@@ -26,9 +23,6 @@ def minmax(depth, nodeIndex, maximizingPlayer, values, alpha, beta, path):
             if val < best:
                 best = val
                 best_path = new_path
-            beta = min(beta, best)
-            if beta <= alpha:
-                break
         return best, best_path
 
 # Example tree with depth 3 and 8 terminal nodes
