@@ -1,5 +1,5 @@
 #  Best First Search (BFS) Algorithm
-
+#It gives the fastest solution which need not be optimal
 
 
 import heapq
@@ -68,7 +68,7 @@ print("Best First Search Path:", path)
 
 
 #   A* Algorithm
-
+# It gives the shortest path ie the most optimal solution
 
 
 
