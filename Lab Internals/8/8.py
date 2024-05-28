@@ -1,26 +1,36 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
-from sklearn.cluster import KMeans
 
-# Load the Iris dataset
-iris = load_iris()
-X = iris.data
+def kmeans(X, K, max_iters=100):
+  centroids = X[:K]
 
-# Number of clusters
-K = 3
+  for _ in range(max_iters):
+    # Assign each data point to the nearest centroid
 
-# K-means using scikit-learn
-kmeans = KMeans(n_clusters=K, random_state=0)
-labels = kmeans.fit_predict(X)
-centroids = kmeans.cluster_centers_
+    expanded_x = X[:, np.newaxis]
+    euc_dist = np.linalg.norm(expanded_x - centroids, axis=2)
+    labels = np.argmin(euc_dist, axis=1)
 
-# Print results
-print("K-means Labels:", labels)
-print("K-means Centroids:", centroids)
+    # Update the centroids based on the assigned point
+    new_centroids = np.array([X[labels == k].mean(axis=0) for k in range(K)])
 
-# Plotting K-means results
-plt.scatter(X[:, 0], X[:, 1], c=labels, cmap='viridis')
+    # If the centroids did not change, stop iterating
+    if np.all(centroids == new_centroids):
+      break
+
+    centroids = new_centroids
+
+  return labels, centroids
+
+
+X = load_iris() .data
+K=3
+labels, centroids = kmeans(X, K)
+print("Labels:", labels)
+print("Centroids:", centroids)
+
+plt.scatter(X[:, 0], X[:, 1], c=labels)
 plt.scatter(centroids[:, 0], centroids[:, 1], marker='x', color='red', s=200)
 plt.xlabel('Sepal Length')
 plt.ylabel('Sepal Width')
