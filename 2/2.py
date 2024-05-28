@@ -33,7 +33,7 @@ sns.boxplot(data=data)
 plt.title('Box Plot')
 plt.show()
 
-# Using boxplot
+# Using toyota dataset
 import pandas as pd
 import matplotlib.pyplot as plt
 
