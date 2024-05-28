@@ -40,14 +40,12 @@ print("The path taken is:", optimal_path)
 
 b)
 
-import seaborn as sns
+import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
+import seaborn as sns
 
-# Generate random data
-data = np.random.rand(10, 12)
+data=pd.read_csv("./ToyotaCorolla.csv")
 
-# Create heat map
-sns.heatmap(data, annot=True, cmap='viridis')
-plt.title('Heat Map')
+sns.heatmap(data[["Price","KM","Doors", "Weight"]].corr(),cmap='jet')
 plt.show()
+
