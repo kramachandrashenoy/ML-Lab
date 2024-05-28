@@ -38,14 +38,13 @@ print("The path taken is:", optimal_path)
 
 b)
 
+import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
-import numpy as np
 
-# Generate random data
-data = np.random.randn(100)
+data=pd.read_csv('./ToyotaCorolla.csv')
 
-# Create box plot
-sns.boxplot(data=data)
-plt.title('Box Plot')
+plt.boxplot([data["Price"],data["HP"],data["KM"]])
+
+plt.xticks([1,2,3],["Price","HP","KM"])
+
 plt.show()
