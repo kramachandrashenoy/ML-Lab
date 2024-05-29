@@ -1,1 +1,1 @@
-7. KNN with fruit dataset(Manhattan)
+7. Write a program to develop a decision tree classifier based on weather forecasting dataset.
