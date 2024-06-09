@@ -21,4 +21,5 @@ Probable programs for Machine Learning Lab Finals (20CS67L)
 10 Write a program to develop Principal Component Analysis (PCA) and Linear Discriminant Analysis (LDA) algorithms.
 
 11 Write a Program to develop simple single layer perceptron to implement AND, OR Boolean functions.
+
 12 Write a program to develop Multi-layer perceptron to implement AND-NOT, XOR Boolean functions.
