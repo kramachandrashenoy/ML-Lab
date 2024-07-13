@@ -5,7 +5,7 @@ using dequeue(preferable)
 
 from collections import deque
 
-def a_star_search(graph, start, goal, heuristic, cost):
+def a_star_search_deque(graph, start, goal, heuristic, cost):
     # Queue for exploring nodes
     queue = deque([(start, 0 + heuristic[start])])
     visited = set()
@@ -15,7 +15,7 @@ def a_star_search(graph, start, goal, heuristic, cost):
     while queue:
         # Sort queue based on f-cost to simulate priority queue
         queue = deque(sorted(list(queue), key=lambda x: x[1]))
-        current_node, current_cost = queue.popleft()
+        current_node, current_f_cost = queue.popleft()
 
         if current_node in visited:
             continue
@@ -35,12 +35,13 @@ def a_star_search(graph, start, goal, heuristic, cost):
 
     path = []
     node = goal
+    total_cost = g_cost.get(goal, 0)
     while node is not None:
         path.append(node)
         node = parent[node]
     path.reverse()
 
-    return path
+    return path, total_cost
 
 # Example graph
 graph = {
@@ -53,7 +54,7 @@ graph = {
     'G': []
 }
 
-# Example heuristic values 
+# Example heuristic values
 heuristic = {
     'A': 6,
     'B': 4,
@@ -64,7 +65,7 @@ heuristic = {
     'G': 1
 }
 
-# Example costs between nodes 
+# Example costs between nodes
 cost = {
     ('A', 'B'): 1,
     ('A', 'C'): 1,
@@ -77,15 +78,16 @@ cost = {
 start = 'A'
 goal = 'D'
 
-path = a_star_search(graph, start, goal, heuristic, cost)
+path, total_cost = a_star_search_deque(graph, start, goal, heuristic, cost)
 print("A* Search Path:", path)
+print("Total Cost:", total_cost)
 
 Method 2: Using heapq
 
 
 import heapq
 
-def a_star_search(graph, start, goal, heuristic, cost):
+def a_star_search_heapq(graph, start, goal, heuristic, cost):
     # Priority queue for exploring nodes
     priority_queue = []
     heapq.heappush(priority_queue, (0 + heuristic[start], start))
@@ -94,7 +96,7 @@ def a_star_search(graph, start, goal, heuristic, cost):
     parent = {start: None}
 
     while priority_queue:
-        current_cost, current_node = heapq.heappop(priority_queue)
+        current_f_cost, current_node = heapq.heappop(priority_queue)
 
         if current_node in visited:
             continue
@@ -114,12 +116,13 @@ def a_star_search(graph, start, goal, heuristic, cost):
 
     path = []
     node = goal
+    total_cost = g_cost.get(goal, 0)
     while node is not None:
         path.append(node)
         node = parent[node]
     path.reverse()
 
-    return path
+    return path, total_cost
 
 # Example graph
 graph = {
@@ -132,7 +135,7 @@ graph = {
     'G': []
 }
 
-# Example heuristic values (assumed for demonstration)
+# Example heuristic values
 heuristic = {
     'A': 6,
     'B': 4,
@@ -143,7 +146,7 @@ heuristic = {
     'G': 1
 }
 
-# Example costs between nodes (assumed for demonstration)
+# Example costs between nodes
 cost = {
     ('A', 'B'): 1,
     ('A', 'C'): 1,
@@ -156,8 +159,9 @@ cost = {
 start = 'A'
 goal = 'D'
 
-path = a_star_search(graph, start, goal, heuristic, cost)
+path, total_cost = a_star_search_heapq(graph, start, goal, heuristic, cost)
 print("A* Search Path:", path)
+print("Total Cost:", total_cost)
 
 b)Contour Plot
 
