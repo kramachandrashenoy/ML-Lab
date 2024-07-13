@@ -4,16 +4,17 @@ There are two methods- using deque or using heapq module. Using dequeu is more p
 (i) Using double ended queue
 from collections import deque
 
-def best_first_search(graph, start, goal, heuristic):
-    # Queue for exploring nodes
-    queue = deque([(start, heuristic[start])])
+def best_first_search_deque(graph, start, goal, heuristic):
+    # Priority queue for exploring nodes based on heuristic + actual cost
+    queue = deque([(start, heuristic[start], 0)])
     visited = set()
     parent = {start: None}
+    cost = {start: 0}
 
     while queue:
-        # Sort queue based on heuristic values to simulate priority queue
-        queue = deque(sorted(list(queue), key=lambda x: x[1]))
-        current_node, current_heuristic = queue.popleft()
+        # Sort queue based on heuristic values + actual cost to simulate priority queue
+        queue = deque(sorted(list(queue), key=lambda x: x[1] + x[2]))
+        current_node, current_heuristic, current_cost = queue.popleft()
 
         if current_node in visited:
             continue
@@ -23,25 +24,28 @@ def best_first_search(graph, start, goal, heuristic):
         if current_node == goal:
             break
 
-        for neighbor in graph[current_node]:
+        for neighbor, edge_cost in graph[current_node]:
             if neighbor not in visited:
-                queue.append((neighbor, heuristic[neighbor]))
+                new_cost = current_cost + edge_cost
+                queue.append((neighbor, heuristic[neighbor], new_cost))
                 parent[neighbor] = current_node
+                cost[neighbor] = new_cost
 
     path = []
     node = goal
+    total_cost = cost.get(goal, 0)
     while node is not None:
         path.append(node)
         node = parent[node]
     path.reverse()
 
-    return path
+    return path, total_cost
 
-# Example graph
+# Example graph with manually assigned costs
 graph = {
-    'A': ['B', 'C'],
-    'B': ['D', 'E'],
-    'C': ['F', 'G'],
+    'A': [('B', 1), ('C', 2)],
+    'B': [('D', 3), ('E', 4)],
+    'C': [('F', 5), ('G', 6)],
     'D': [],
     'E': [],
     'F': [],
@@ -62,10 +66,9 @@ heuristic = {
 start = 'A'
 goal = 'D'
 
-path = best_first_search(graph, start, goal, heuristic)
+path, total_cost = best_first_search_deque(graph, start, goal, heuristic)
 print("Best First Search Path:", path)
-
-
+print("Total Cost:", total_cost)
 
 
 (ii) Using heapq
@@ -73,14 +76,15 @@ print("Best First Search Path:", path)
 import heapq
 
 def best_first_search(graph, start, goal, heuristic):
-    # Priority queue for exploring nodes based on heuristic
+    # Priority queue for exploring nodes based on heuristic + actual cost
     priority_queue = []
-    heapq.heappush(priority_queue, (heuristic[start], start))
+    heapq.heappush(priority_queue, (heuristic[start], start, 0))
     visited = set()
     parent = {start: None}
+    cost = {start: 0}
 
     while priority_queue:
-        current_heuristic, current_node = heapq.heappop(priority_queue)
+        current_heuristic, current_node, current_cost = heapq.heappop(priority_queue)
 
         if current_node in visited:
             continue
@@ -90,25 +94,28 @@ def best_first_search(graph, start, goal, heuristic):
         if current_node == goal:
             break
 
-        for neighbor in graph[current_node]:
+        for neighbor, edge_cost in graph[current_node]:
             if neighbor not in visited:
-                heapq.heappush(priority_queue, (heuristic[neighbor], neighbor))
+                new_cost = current_cost + edge_cost
+                heapq.heappush(priority_queue, (heuristic[neighbor] + new_cost, neighbor, new_cost))
                 parent[neighbor] = current_node
+                cost[neighbor] = new_cost
 
     path = []
     node = goal
+    total_cost = cost.get(goal, 0)
     while node is not None:
         path.append(node)
         node = parent[node]
     path.reverse()
 
-    return path
+    return path, total_cost
 
-# Example graph
+# Example graph with manually assigned costs
 graph = {
-    'A': ['B', 'C'],
-    'B': ['D', 'E'],
-    'C': ['F', 'G'],
+    'A': [('B', 1), ('C', 2)],
+    'B': [('D', 3), ('E', 4)],
+    'C': [('F', 5), ('G', 6)],
     'D': [],
     'E': [],
     'F': [],
@@ -129,8 +136,9 @@ heuristic = {
 start = 'A'
 goal = 'D'
 
-path = best_first_search(graph, start, goal, heuristic)
+path, total_cost = best_first_search(graph, start, goal, heuristic)
 print("Best First Search Path:", path)
+print("Total Cost:", total_cost)
 
 
 
