@@ -1,20 +1,20 @@
 a) BFS 
-There are two methods- using deque or using heapq module. Using dequeu is more preferable.
+There are two methods- using deque or using heapq module. Using dequeue is more preferable.
 
 (i) Using double ended queue
 from collections import deque
 
 def best_first_search_deque(graph, start, goal, heuristic):
-    # Priority queue for exploring nodes based on heuristic + actual cost
-    queue = deque([(start, heuristic[start], 0)])
+    # Priority queue for exploring nodes based on heuristic values
+    queue = deque([(start, heuristic[start])])
     visited = set()
     parent = {start: None}
     cost = {start: 0}
 
     while queue:
-        # Sort queue based on heuristic values + actual cost to simulate priority queue
-        queue = deque(sorted(list(queue), key=lambda x: x[1] + x[2]))
-        current_node, current_heuristic, current_cost = queue.popleft()
+        # Sort queue based on heuristic values to simulate priority queue
+        queue = deque(sorted(list(queue), key=lambda x: x[1]))
+        current_node, current_heuristic = queue.popleft()
 
         if current_node in visited:
             continue
@@ -26,10 +26,9 @@ def best_first_search_deque(graph, start, goal, heuristic):
 
         for neighbor, edge_cost in graph[current_node]:
             if neighbor not in visited:
-                new_cost = current_cost + edge_cost
-                queue.append((neighbor, heuristic[neighbor], new_cost))
+                queue.append((neighbor, heuristic[neighbor]))
                 parent[neighbor] = current_node
-                cost[neighbor] = new_cost
+                cost[neighbor] = cost[current_node] + edge_cost
 
     path = []
     node = goal
