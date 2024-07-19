@@ -6,33 +6,30 @@ from sklearn.metrics import confusion_matrix
 import seaborn as sns
 
 def kmeans(X, K, max_iters=100):
+    # Step 1: Initialize centroids with the first K samples
     centroids = X[:K]
-
+    
+    # Step 1: Assign the remaining n-K samples to the nearest centroid and update centroids
+    for i in range(K, len(X)):
+        distances = np.linalg.norm(X[i] - centroids, axis=1)
+        nearest_centroid = np.argmin(distances)
+        centroids[nearest_centroid] = (centroids[nearest_centroid] + X[i]) / 2
+    
+    labels = np.zeros(X.shape[0])
+    
+    # Step 2: Assign each sample to the nearest centroid without updating centroids
     for _ in range(max_iters):
-        # Assign each data point to the nearest centroid
-        expanded_x = X[:, np.newaxis]
-        euc_dist = np.linalg.norm(expanded_x - centroids, axis=2)
-        labels = np.argmin(euc_dist, axis=1)
-
-        # Update the centroids based on the assigned point
-        new_centroids = np.array([X[labels == k].mean(axis=0) for k in range(K)])
-
-        # If the centroids did not change, stop iterating
-        if np.all(centroids == new_centroids):
-            break
-
-        centroids = new_centroids
-
+        for i in range(len(X)):
+            distances = np.linalg.norm(X[i] - centroids, axis=1)
+            nearest_centroid = np.argmin(distances)
+            labels[i] = nearest_centroid
+    
     return labels, centroids
-
 
 # Load the iris dataset and preprocess it
 iris = load_iris()
 X = iris.data
 y = iris.target
-
-# Handle missing values
-# For simplicity, we'll assume there are no missing values in this dataset
 
 # Scale the features
 scaler = StandardScaler()
@@ -58,7 +55,6 @@ plt.ylabel('Sepal Width (scaled)')
 plt.title('K-means Clustering of Iris Dataset')
 plt.show()
 
-
 # Calculate and plot the confusion matrix
 conf_matrix = confusion_matrix(y, labels)
 plt.figure(figsize=(6, 6))
@@ -67,3 +63,4 @@ plt.xlabel('Predicted Class')
 plt.ylabel('True Class')
 plt.title('Confusion Matrix')
 plt.show()
+
