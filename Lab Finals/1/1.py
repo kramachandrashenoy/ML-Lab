@@ -75,15 +75,15 @@ print("Total Cost:", total_cost)
 import heapq
 
 def best_first_search(graph, start, goal, heuristic):
-    # Priority queue for exploring nodes based on heuristic + actual cost
+    # Priority queue for exploring nodes based on heuristic
     priority_queue = []
-    heapq.heappush(priority_queue, (heuristic[start], start, 0))
+    heapq.heappush(priority_queue, (heuristic[start], start))
     visited = set()
     parent = {start: None}
-    cost = {start: 0}
+    cost={start:0}
 
     while priority_queue:
-        current_heuristic, current_node, current_cost = heapq.heappop(priority_queue)
+        current_heuristic, current_node = heapq.heappop(priority_queue)
 
         if current_node in visited:
             continue
@@ -95,20 +95,17 @@ def best_first_search(graph, start, goal, heuristic):
 
         for neighbor, edge_cost in graph[current_node]:
             if neighbor not in visited:
-                new_cost = current_cost + edge_cost
-                heapq.heappush(priority_queue, (heuristic[neighbor] + new_cost, neighbor, new_cost))
+                heapq.heappush(priority_queue, (heuristic[neighbor], neighbor))
                 parent[neighbor] = current_node
-                cost[neighbor] = new_cost
-
+                cost[neighbor]=cost[current_node]+edge_cost
     path = []
     node = goal
-    total_cost = cost.get(goal, 0)
     while node is not None:
         path.append(node)
         node = parent[node]
     path.reverse()
 
-    return path, total_cost
+    return path,cost.get(goal,0)
 
 # Example graph with manually assigned costs
 graph = {
@@ -135,9 +132,8 @@ heuristic = {
 start = 'A'
 goal = 'D'
 
-path, total_cost = best_first_search(graph, start, goal, heuristic)
-print("Best First Search Path:", path)
-print("Total Cost:", total_cost)
+path,cost = best_first_search(graph, start, goal, heuristic)
+print("Best First Search Path is ", path," and cost value is ",cost)
 
 
 
