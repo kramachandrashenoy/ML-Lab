@@ -10,7 +10,7 @@ def kmeans(X, K):
     centroids = X[:K]
     
     # Step 1: Assign the remaining n-K samples to the nearest centroid and update centroids
-    pointsPerCentroid=[[] for _ in range(3)]
+    pointsPerCentroid=[[] for _ in range(K)]
     for i in range(K, len(X)):
         distances = np.linalg.norm(X[i] - centroids, axis=1)
         nearest_centroid = np.argmin(distances)
