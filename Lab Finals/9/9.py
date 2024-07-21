@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.cluster.hierarchy import dendrogram, linkage
 from sklearn.datasets import load_iris
-from sklearn.metrics import confusion_matrix
 import seaborn as sns
 
 iris = load_iris()
@@ -25,25 +24,12 @@ def plot_dendrogram(data, method):
     plt.ylabel('Distance')
     plt.show()
 
-def plot_confusion_matrix(true_labels, predicted_labels):
-    cm = confusion_matrix(true_labels, predicted_labels)
-    plt.figure(figsize=(6, 6))
-    sns.heatmap(cm, annot=True, cmap='Blues', fmt='d')
-    plt.xlabel('Predicted Class')
-    plt.ylabel('True Class')
-    plt.title('Confusion Matrix')
-    plt.show()
-
 def plot_correlation_matrix(data):
     correlation_matrix = np.corrcoef(data.T)
     plt.figure(figsize=(6, 6))
     sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f')
     plt.title('Correlation Matrix')
     plt.show()
-
-    
-# Plot the correlation matrix
-plot_correlation_matrix(data)
 
 # Calculate the proximity matrix
 print("Proximity matrix:")
@@ -55,10 +41,5 @@ plot_dendrogram(data, 'single')
 # Plot the dendrogram using complete-linkage
 plot_dendrogram(data, 'complete')
 
-# Example of true and predicted labels
-true_labels = np.array([0, 0, 1, 1, 2, 2])
-predicted_labels = np.array([0, 0, 1, 2, 2, 2])
-
-# Plot the confusion matrix
-plot_confusion_matrix(true_labels, predicted_labels)
-
+# Plot the correlation matrix
+plot_correlation_matrix(data)
